@@ -12,10 +12,7 @@ import bookingRoute from './routes/bookings.js'
 dotenv.config()
 const app = express()
 const port = process.env.PORT || 8000
-const corsOptions = {
-   origin: true,
-   credentials: true
-}
+ 
 
 mongoose.set("strictQuery", false)
 const connect = async() => {
@@ -32,7 +29,7 @@ const connect = async() => {
 }
 
 app.use(express.json())
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(cookieParser())
 app.get('/',(req,res)=>{
    res.send("Server running")
@@ -42,7 +39,9 @@ app.use("/api/v1/tours", tourRoute)
 app.use("/api/v1/users", userRoute)
 app.use("/api/v1/review", reviewRoute)
 app.use("/api/v1/booking", bookingRoute)
-
+app.get('*',(req,res)=>{
+   res.send("Api not found")
+})
 app.listen(port, () => {
    connect()
    console.log('server listening on port', port)
