@@ -63,7 +63,7 @@ export const getAllTour = async (req, res) => {
 
    try {
       const tours = await Tour.find({}).populate('reviews').skip(page * 8).limit(8)
-
+      console.log(tours,"tours")
       res.status(200).json({ success: true, count: tours.length, message: 'Successfully', data: tours })
    } catch (error) {
       res.status(404).json({ success: false, message: 'Not Found' })
@@ -92,6 +92,7 @@ export const getTourBySearch = async (req, res) => {
 //Get featured Tour
 export const getFeaturedTour = async (req, res) => {
    //console.log(page)
+   console.log("first")
 
    try {
       const tours = await Tour.find({ featured: true }).populate('reviews').limit(8)
